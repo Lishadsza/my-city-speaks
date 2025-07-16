@@ -1,0 +1,5 @@
+﻿user_id,word,language,dialect_region,city,gender,agegroup,filepath,comments
+user_001,hello,kannada,padil,mangalore,female,18-25,converted_wav/user001_hello.wav,mangalore accent
+user_002,water,kannada,kankanady,mangalore,female,18-25,converted_wav/user002_water.wav,slight kerala accent
+user_003,tomato,kannada,padil,mangalore,female,18-25,converted_wav/user003_tomato.wav,slight managlore accent
+user_004,school,kannada,padil,mangalore,female,21-25,converted_wav/user004_school.wav,pure manglore accent
