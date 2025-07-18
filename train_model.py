@@ -1,40 +1,30 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, accuracy_score
-from imblearn.over_sampling import RandomOverSampler
-import warnings
-
-# Ignore precision warnings for now
-warnings.filterwarnings("ignore")
-
-# Load features
+from collections import Counter
+# dataset
 df = pd.read_csv("audio_features.csv")
 
-# Show class distribution before balancing
-print("Original Class Distribution:\n", df["language"].value_counts())
+#distribution
+print("Class Distribution:\n", df['language'].value_counts())
 
-# Define features and target
+# Define features
 X = df[[col for col in df.columns if col.startswith("mfcc_")]]
-y = df["language"]  # Can switch to 'city' or 'gender'
+y = df["language"]
 
-# Step 1: Oversample minority classes
-ros = RandomOverSampler(random_state=42)
-X_resampled, y_resampled = ros.fit_resample(X, y)
-
-# Show new distribution
-print("\nBalanced Class Distribution:\n", pd.Series(y_resampled).value_counts())
-
-# Step 2: Stratified train-test split
+# Train/test split 
 X_train, X_test, y_train, y_test = train_test_split(
-    X_resampled, y_resampled, test_size=0.2, random_state=42, stratify=y_resampled
+    X, y, test_size=0.2, random_state=42, stratify=y  # stratify maintains class balance in split
 )
 
-# Step 3: Train Logistic Regression
-clf = LogisticRegression(max_iter=1000, class_weight="balanced")
+#Random Forest
+clf = RandomForestClassifier(n_estimators=100, random_state=42)
 clf.fit(X_train, y_train)
 
-# Step 4: Evaluate
+# Predict
 y_pred = clf.predict(X_test)
+
+# Evaluate
 print("\nAccuracy:", accuracy_score(y_test, y_pred))
-print("\nClassification Report:\n", classification_report(y_test, y_pred, zero_division=0))
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
