@@ -23,7 +23,7 @@ for idx, row in df.iterrows():
         feature_row = {
             "user_id": row["user_id"],
             "word": row["word"],
-            "dialect_region": row["dialect_region"],
+            "state": row["state"],
             "city": row["city"],
             "language": row["language"],
             "gender": row["gender"],
