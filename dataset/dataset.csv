@@ -27,3 +27,19 @@ user_005,tomato,hindi,uttarpradesh,agra,male,23-25,converted_wav/user005_hindi_t
 user_005,car,hindi,uttarpradesh,agra,male,23-25,converted_wav/user005_hindi_car.wav,clear hindi accent
 user_005,hello,hindi,uttarpradesh,agra,male,23-25,converted_wav/user005_hindi_hello.wav,clear hindi accent
 user_006,hello,hindi,karnataka,bangalore,male,22-24,converted_wav/user006_hindi_hello.wav,banglore hindi accent
+user_004,fish,tulu,karnataka,mangalore,male,14-20,converted_wav/user004_tulu_fish.wav,manglorean tulu accent
+user_004,house,tulu,karnataka,mangalore,male,14-20,converted_wav/user004_tulu_house.wav,perfect tulu accent
+user_004,rain,tulu,karnataka,mangalore,male,14-20,converted_wav/user004_tulu_rain.wav,tulu accent
+user_004,tea,tulu,karnataka,mangalore,male,14-20,converted_wav/user004_tulu_tea.wav,manglore accent
+user_004,children,tulu,karnataka,mangalore,male,14-20,converted_wav/user004_tulu_children.wav,slightly manglore accent
+user_004,clothes,tulu,karnataka,mangalore,male,14-20,converted_wav/user004_tulu_clothes.wav,mangalore accent
+user_004,umbrella,tulu,karnataka,mangalore,male,14-20,converted_wav/user004_tulu_umbrella.wav,tulu accent
+user_004,sunlight,tulu,karnataka,mangalore,male,14-20,converted_wav/user004_tulu_sunlight.wav,tulu accent
+user_004,meal,tulu,karnataka,mangalore,male,14-20,converted_wav/user004_tulu_meal.wav,tulu accent
+user_001,plastic,kannada,karnataka,mangalore,female,18-25,converted_wav/user001_kannada_plastic.wav,manglore kannada accent
+user_001,clouds,kannada,karnataka,mangalore,female,18-25,converted_wav/user001_kannada_clouds.wav,manglore kannada accent
+user_001,house,kannada,karnataka,mangalore,female,18-25,converted_wav/user001_kannada_house.wav,manglore kannada accent
+user_001,book,kannada,karnataka,mangalore,female,18-25,converted_wav/user001_kannada_book.wav,manglore kannada accent
+user_001,hill,kannada,karnataka,mangalore,female,18-25,converted_wav/user001_kannada_hill.wav,manglore kannada accent
+user_001,song,kannada,karnataka,mangalore,female,18-25,converted_wav/user001_kannada_song.wav,manglore kannada accent
+user_001,lesson,kannada,karnataka,mangalore,female,18-25,converted_wav/user001_kannada_lesson.wav,manglore kannada accent
