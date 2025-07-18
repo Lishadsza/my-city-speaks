@@ -1,5 +1,29 @@
-﻿user_id,word,language,dialect_region,city,gender,agegroup,filepath,comments
-user_001,hello,kannada,padil,mangalore,female,18-25,converted_wav/user001_hello.wav,mangalore accent
-user_002,water,kannada,kankanady,mangalore,female,18-25,converted_wav/user002_water.wav,slight kerala accent
-user_003,tomato,kannada,padil,mangalore,female,18-25,converted_wav/user003_tomato.wav,slight managlore accent
-user_004,school,kannada,padil,mangalore,female,21-25,converted_wav/user004_school.wav,pure manglore accent
+﻿user_id,word,language,state,city,gender,agegroup,filepath,comments
+user_001,hello,kannada,karnataka,mangalore,female,18-25,converted_wav/user001_kannada_hello.wav,mangalore accent
+user_001,water,kannada,karnataka,mangalore,female,18-25,converted_wav/user001_kannada_water.wav,manglore accent
+user_001,tomato,kannada,karnataka,mangalore,female,18-25,converted_wav/user001_kannada_tomato.wav,slight managlore accent
+user_001,school,kannada,karnataka,mangalore,female,18-25,converted_wav/user001_kannada_school.wav,pure manglore accent
+user_002,balloon,english,karnataka,mangalore,female,21-25,converted_wav/user002_english_balloon.wav,manglorean english accent
+user_002,star,english,karnataka,mangalore,female,21-25,converted_wav/user002_english_star.wav,manglorean english accent
+user_002,rain,english,karnataka,mangalore,female,21-25,converted_wav/user002_english_rain.wav,mangalore accent
+user_002,hello,english,karnataka,mangalore,female,21-25,converted_wav/user002_english_hello.wav,manglore accent
+user_002,car,english,karnataka,mangalore,female,21-25,converted_wav/user002_english_car.wav,manglore accent
+user_002,bus,english,karnataka,mangalore,female,21-25,converted_wav/user002_english_bus.wav,manglore accent
+user_002,rose,english,karnataka,mangalore,female,21-25,converted_wav/user002_english_rose.wav,manglore accent
+user_002,plants,english,karnataka,mangalore,female,21-25,converted_wav/user002_english_plants.wav,manglore accent
+user_002,city,english,karnataka,mangalore,female,21-25,converted_wav/user002_english_city.wav,manglore accent
+user_002,mobile,english,karnataka,mangalore,female,21-25,converted_wav/user002_english_mobile.wav,manglore accent
+user_003,game,english,karnataka,mangalore,female,18-25,converted_wav/user003_english_game.wav,"padil ,mangalore accent"
+user_004,hello,tulu,karnataka,mangalore,male,14-20,converted_wav/user004_tulu_hello.wav,mangalorean tulu accent
+user_004,water,tulu,karnataka,mangalore,male,14-20,converted_wav/user004_tulu_water.wav,mangalorean tulu accent
+user_005,chair,hindi,uttarpradesh,agra,male,23-25,converted_wav/user005_hindi_chair.wav,up accent
+user_005,mango,hindi,uttarpradesh,agra,male,23-25,converted_wav/user005_hindi_mango.wav,up accent
+user_005,air,hindi,uttarpradesh,agra,male,23-25,converted_wav/user005_hindi_air.wav,up accent
+user_005,songs,hindi,uttarpradesh,agra,male,23-25,converted_wav/user005_hindi_songs.wav,up accent
+user_005,word,hindi,uttarpradesh,agra,male,23-25,converted_wav/user005_hindi_word.wav,up accent
+user_005,rain,hindi,uttarpradesh,agra,male,23-25,converted_wav/user005_hindi_rain.wav,agra accent
+user_005,clouds,hindi,uttarpradesh,agra,male,23-25,converted_wav/user005_hindi_clouds.wav,agra accent
+user_005,tomato,hindi,uttarpradesh,agra,male,23-25,converted_wav/user005_hindi_tomato.wav,agra accent
+user_005,car,hindi,uttarpradesh,agra,male,23-25,converted_wav/user005_hindi_car.wav,clear hindi accent
+user_005,hello,hindi,uttarpradesh,agra,male,23-25,converted_wav/user005_hindi_hello.wav,clear hindi accent
+user_006,hello,hindi,karnataka,bangalore,male,22-24,converted_wav/user006_hindi_hello.wav,banglore hindi accent
