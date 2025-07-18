@@ -4,6 +4,9 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, accuracy_score
 from collections import Counter
 from sklearn.model_selection import cross_val_score
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import confusion_matrix
 # dataset
 df = pd.read_csv("audio_features.csv")
 
@@ -31,3 +34,15 @@ print("\nAccuracy:", accuracy_score(y_test, y_pred))
 print("\nClassification Report:\n", classification_report(y_test, y_pred))
 scores = cross_val_score(clf, X, y, cv=5)
 print("Cross-validation accuracy:", scores.mean())
+
+
+#confusion matrix and plotting
+cm = confusion_matrix(y_test, y_pred, labels=clf.classes_)
+print("\nConfusion Matrix:\n", cm)
+plt.figure(figsize=(6, 5))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=clf.classes_, yticklabels=clf.classes_)
+plt.title("Confusion Matrix")
+plt.xlabel("Predicted")
+plt.ylabel("True")
+plt.tight_layout()
+plt.show()
