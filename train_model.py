@@ -7,6 +7,7 @@ from sklearn.model_selection import cross_val_score
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
+import joblib
 # dataset
 df = pd.read_csv("audio_features.csv")
 
@@ -46,3 +47,7 @@ plt.xlabel("Predicted")
 plt.ylabel("True")
 plt.tight_layout()
 plt.show()
+
+#saving the modell
+joblib.dump(clf, 'random_forest_model.pkl')
+print("Model saved as random_forest_model.pkl")
