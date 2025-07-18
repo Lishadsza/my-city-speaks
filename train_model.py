@@ -3,6 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, accuracy_score
 from collections import Counter
+from sklearn.model_selection import cross_val_score
 # dataset
 df = pd.read_csv("audio_features.csv")
 
@@ -28,3 +29,5 @@ y_pred = clf.predict(X_test)
 # Evaluate
 print("\nAccuracy:", accuracy_score(y_test, y_pred))
 print("\nClassification Report:\n", classification_report(y_test, y_pred))
+scores = cross_val_score(clf, X, y, cv=5)
+print("Cross-validation accuracy:", scores.mean())
