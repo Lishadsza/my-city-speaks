@@ -1,28 +1,40 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, classification_report
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report, accuracy_score
+from imblearn.over_sampling import RandomOverSampler
+import warnings
 
-# Loading the dataset
+# Ignore precision warnings for now
+warnings.filterwarnings("ignore")
+
+# Load features
 df = pd.read_csv("audio_features.csv")
 
-# Select features (MFCCs) and target label (you can change 'dialect_region' to any other label)
-X = df[[f"mfcc_{i}" for i in range(1, 14)]]
-y = df["dialect_region"]
+# Show class distribution before balancing
+print("Original Class Distribution:\n", df["language"].value_counts())
 
-# Split the data
+# Define features and target
+X = df[[col for col in df.columns if col.startswith("mfcc_")]]
+y = df["language"]  # Can switch to 'city' or 'gender'
+
+# Step 1: Oversample minority classes
+ros = RandomOverSampler(random_state=42)
+X_resampled, y_resampled = ros.fit_resample(X, y)
+
+# Show new distribution
+print("\nBalanced Class Distribution:\n", pd.Series(y_resampled).value_counts())
+
+# Step 2: Stratified train-test split
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
+    X_resampled, y_resampled, test_size=0.2, random_state=42, stratify=y_resampled
 )
 
-# Initialize and train the model
-clf = RandomForestClassifier(random_state=42)
+# Step 3: Train Logistic Regression
+clf = LogisticRegression(max_iter=1000, class_weight="balanced")
 clf.fit(X_train, y_train)
 
-# Make predictions
+# Step 4: Evaluate
 y_pred = clf.predict(X_test)
-
-# Evaluate the model
-print("✅ Model Training Complete")
-print("🔍 Accuracy:", accuracy_score(y_test, y_pred))
-print("\n📊 Classification Report:\n", classification_report(y_test, y_pred))
+print("\nAccuracy:", accuracy_score(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred, zero_division=0))
