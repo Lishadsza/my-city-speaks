@@ -14,7 +14,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 #loadmodel
-model = joblib.load("model/accent_model.joblib")
+model = joblib.load("random_forest_model.pkl")
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
     contents = await file.read()
@@ -28,10 +28,14 @@ async def predict(file: UploadFile = File(...)):
         prediction = model.predict([features])[0]
         proba = model.predict_proba([features])[0]
         confidence = round(np.max(proba) * 100, 2)
+        prediction_parts = prediction.split(" - ")#spliting predictions into parts
+
 
         result = {
-            "prediction": prediction,  
-            "confidence": confidence
+            "language": prediction_parts[0],
+            "city": prediction_parts[1],
+            "state": prediction_parts[2],
+            "confidence": round(confidence, 2)
         }
         return result
     finally:
