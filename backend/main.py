@@ -28,14 +28,23 @@ async def predict(file: UploadFile = File(...)):
         prediction = model.predict([features])[0]
         proba = model.predict_proba([features])[0]
         confidence = round(np.max(proba) * 100, 2)
-        prediction_parts = prediction.split(" - ")#spliting predictions into parts
 
+        # Debug print (optional)
+        print("Prediction from model:", prediction)
+
+        prediction_parts = prediction.split(" - ")
+        if len(prediction_parts) < 3:
+            return {
+                "error": "Invalid prediction format",
+                "raw_prediction": prediction,
+                "confidence": confidence
+            }
 
         result = {
             "language": prediction_parts[0],
             "city": prediction_parts[1],
             "state": prediction_parts[2],
-            "confidence": round(confidence, 2)
+            "confidence": confidence
         }
         return result
     finally:
