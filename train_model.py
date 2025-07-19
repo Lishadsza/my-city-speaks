@@ -19,9 +19,9 @@ X = df[[col for col in df.columns if col.startswith("mfcc_")]]
 y = df["language"]
 
 # Train/test split 
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42, stratify=y  # stratify maintains class balance in split
-)
+X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=42, stratify=y)  
+# stratify maintains class balance in split
+
 
 #Random Forest
 clf = RandomForestClassifier(n_estimators=100, random_state=42)
