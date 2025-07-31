@@ -1,51 +1,52 @@
-from fastapi import FastAPI, File, UploadFile
-from fastapi.middleware.cors import CORSMiddleware
-from utils.feature_extractor import extract_features
-import joblib
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.svm import SVC
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
+from sklearn.model_selection import train_test_split
+from imblearn.over_sampling import SMOTE
 import numpy as np
-import uvicorn
-import os
-app = FastAPI()
-app.add_middleware(
-    CORSMiddleware,#cors as a part of frontennd for communication with servers.
-    allow_origins=["*"],
-    allow_credentials=True,# foorAllowing frontend requests
-    allow_methods=["*"],
-    allow_headers=["*"],
+
+
+df = pd.read_csv("../audio_features.csv")#loading dataset
+# print((df.columns).value_counts())  # Checking actual column names
+label_column = "language"
+
+#extracting mfcc features
+X = df[[col for col in df.columns if col.startswith("mfcc_")]]
+y = df[label_column]
+label_encoder = LabelEncoder()#convrtig labels to numbers
+y_encoded = label_encoder.fit_transform(y)
+scaler = StandardScaler()#feature scaling
+X_scaled = scaler.fit_transform(X)
+
+#oversampling for bqlance
+df_tulu = df[df['language'] == 'tulu']
+df = pd.concat([df, df_tulu, df_tulu], ignore_index=True) # Tripling tulu
+# Split into train/test
+X_train, X_test, y_train, y_test = train_test_split(
+    X_scaled, y_encoded, test_size=0.2, random_state=42, stratify=y_encoded
 )
-#loadmodel
-model = joblib.load("random_forest_model.pkl")
-@app.post("/predict")
-async def predict(file: UploadFile = File(...)):
-    contents = await file.read()
-    temp_file_path = f"temp/{file.filename}"
-    os.makedirs("temp", exist_ok=True)
-    with open(temp_file_path, "wb") as f:
-        f.write(contents)
+#using smote to add some extra samples(balance)
+smote = SMOTE(random_state=42)
+X_train, y_train = smote.fit_resample(X_train, y_train)
+#priting samples per class
+unique, counts = np.unique(y_train, return_counts=True)
+print(dict(zip(label_encoder.inverse_transform(unique), counts)))
 
-    try:
-        features = extract_features(temp_file_path)
-        prediction = model.predict([features])[0]
-        proba = model.predict_proba([features])[0]
-        confidence = round(np.max(proba) * 100, 2)
 
-        # Debug print (optional)
-        print("Prediction from model:", prediction)
-
-        prediction_parts = prediction.split(" - ")
-        if len(prediction_parts) < 3:
-            return {
-                "error": "Invalid prediction format",
-                "raw_prediction": prediction,
-                "confidence": confidence
-            }
-
-        result = {
-            "language": prediction_parts[0],
-            "city": prediction_parts[1],
-            "state": prediction_parts[2],
-            "confidence": confidence
-        }
-        return result
-    finally:
-        os.remove(temp_file_path)
+# Training
+clf = SVC(kernel='rbf', C=10, gamma='scale', probability=True)
+clf.fit(X_train, y_train)
+# Predicting
+y_pred = clf.predict(X_test)
+print(df['language'].value_counts())
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred, target_names=label_encoder.classes_))
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, y_pred))
+import joblib
+joblib.dump(clf, "svm_model.pkl")
+joblib.dump(label_encoder, "label_encoder.pkl")
+joblib.dump(scaler, "scaler.pkl")

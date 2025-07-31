@@ -13,12 +13,16 @@ for idx, row in df.iterrows():
     filepath = row['filepath']
     try:
         # Load the .wav file
-        y, sr = librosa.load(filepath, sr=None)
+        y, sr = librosa.load(filepath, sr=16000)
+        y = librosa.util.fix_length(y, size=16000)
 
-        # Extract MFCC features
+        # Extract MFCC and all
         mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13)
-        mfcc_mean = mfcc.mean(axis=1)  # Mean across time axis
-
+        delta = librosa.feature.delta(mfcc)
+        delta2 = librosa.feature.delta(mfcc, order=2)
+        combined = np.vstack([mfcc, delta, delta2])
+        mfcc_mean = combined.mean(axis=1)
+        
         # Build a feature row with metadata + MFCCs
         feature_row = {
             "user_id": row["user_id"],
