@@ -8,7 +8,7 @@ from imblearn.over_sampling import SMOTE
 import numpy as np
 
 
-df = pd.read_csv("../audio_features.csv")#loading dataset
+df = pd.read_csv("audio_features.csv")#loading dataset
 # print((df.columns).value_counts())  # Checking actual column names
 label_column = "language"
 
