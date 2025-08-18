@@ -1,44 +1,77 @@
 from flask import Flask, request, jsonify
 import numpy as np
 import joblib
-app = Flask(__name__)
+import os
+from werkzeug.utils import secure_filename
+from flask_cors import CORS
+from utils.feature_extractor import extract_features
+from utils.audioconverter import convert_to_wav 
 
-#loading the trained compnents
+app = Flask(__name__) # .\venv\Scripts\activate(virtualenviro)
+CORS(app)
+
+# Load trained components
 model = joblib.load("svm_model.pkl")
 scaler = joblib.load("scaler.pkl")
 label_encoder = joblib.load("label_encoder.pkl")
 
-#notes
+# Notes
 language_notes = {
     "kannada": "This language is commonly spoken in Karnataka. (Based on language, not location prediction.)",
-    "tulu": "This language is spoken mainly in coastal Karnataka and parts of Kerala.(Based on language, not location prediction.)",
-    "hindi": "This language is widely spoken across North and Central India.(Based on language, not location prediction.)",
-    "english": "This language is commonly used in urban and formal settings across India.(Based on language, not location prediction.)"
+    "tulu": "This language is spoken mainly in coastal Karnataka and parts of Kerala. (Based on language, not location prediction.)",
+    "hindi": "This language is widely spoken across North and Central India. (Based on language, not location prediction.)",
+    "english": "This language is commonly used in urban and formal settings across India. (Based on language, not location prediction.)"
 }
+
 @app.route("/")
 def index():
     return "Accent classification backend is running."
 
 @app.route("/predict", methods=["POST"])
-def predict():#prdict funtion
+def predict():
     try:
-        data = request.get_json()
-        if "features" not in data:
-            return jsonify({"error": "Missing 'features' in request"}), 400
-        features = np.array(data["features"]).reshape(1, -1)
+        if "file" not in request.files:
+            return jsonify({"error": "No file uploaded"}), 400
+
+        uploaded_file = request.files["file"]
+
+        # Save original upload
+        filename = secure_filename(uploaded_file.filename)
+        os.makedirs("uploads", exist_ok=True)
+        original_path = os.path.join("uploads", filename)
+        uploaded_file.save(original_path)
+
+        # Convert to WAV if needed
+        if not filename.lower().endswith(".wav"):
+            filepath = convert_to_wav(original_path)
+        else:
+            filepath = original_path
+
+        # Extract features
+        features = extract_features(filepath).reshape(1, -1)
+
+        # Scale & predict
         scaled_features = scaler.transform(features)
         prediction = model.predict(scaled_features)
         predicted_label = label_encoder.inverse_transform(prediction)[0]
-
-        # Optional notes addition
         note = language_notes.get(predicted_label, "")
 
+        # Cleanups
+        try:
+            os.remove(original_path)
+            if filepath != original_path:
+                os.remove(filepath)
+        except:
+            pass
+
+        # ReturningResponnse
         return jsonify({
-            "prediction": predicted_label,
+            "language": predicted_label,
             "note": note
         })
 
     except Exception as e:
+        print("Error during prediction:", str(e))
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":

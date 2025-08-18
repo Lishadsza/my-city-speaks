@@ -3,16 +3,16 @@ import numpy as np
 import pandas as pd
 import os
 
-# Load dataset (correct path)
+# Load dataset
 df = pd.read_csv("dataset/dataset.csv")
 
-# Store MFCC features
+# MFCC features
 features = []
 
 for idx, row in df.iterrows():
     filepath = row['filepath']
     try:
-        # Load the .wav file
+        # Loading .wav
         y, sr = librosa.load(filepath, sr=16000)
         y = librosa.util.fix_length(y, size=16000)
 
@@ -23,7 +23,7 @@ for idx, row in df.iterrows():
         combined = np.vstack([mfcc, delta, delta2])
         mfcc_mean = combined.mean(axis=1)
         
-        # Build a feature row with metadata + MFCCs
+        # features  with metadata + MFCCs
         feature_row = {
             "user_id": row["user_id"],
             "word": row["word"],
