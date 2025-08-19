@@ -79,7 +79,7 @@ export default function UploadPage() {
     formData.append("file", file, fileName || file.name);
 
     try {
-      const res = await fetch("https://liicityspeaks.onrender.com", {
+      const res = await fetch("https://liicityspeaks.onrender.com/predict", {
         method: "POST",
         body: formData,
       });
