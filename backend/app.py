@@ -10,6 +10,8 @@ from utils.audioconverter import convert_to_wav
 app = Flask(__name__) # .\venv\Scripts\activate(virtualenviro)
 CORS(app)
 
+
+
 # Load trained components
 model = joblib.load("svm_model.pkl")
 scaler = joblib.load("scaler.pkl")
@@ -23,8 +25,13 @@ language_notes = {
     "english": "This language is commonly used in urban and formal settings across India. (Based on language, not location prediction.)"
 }
 
-@app.route("/")
+""" @app.route("/")
 def index():
+    return "Accent classification backend is running." """
+
+
+@app.route("/")
+def home():
     return "Accent classification backend is running."
 
 @app.route("/predict", methods=["POST"])
@@ -75,4 +82,4 @@ def predict():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
