@@ -81,7 +81,7 @@ export default function UploadPage() {
     formData.append("file", file, fileName || file.name);
 
     try {
-      const res = await fetch("http://localhost:5000/predict", {
+      const res = await fetch("https://liicityspeaks-backend.onrender.com/predict", {
         method: "POST",
         body: formData,
       });
