@@ -25,9 +25,9 @@ language_notes = {
     "english": "This language is commonly used in urban and formal settings across India. (Based on language, not location prediction.)"
 }
 
-""" @app.route("/")
+@app.route("/")
 def index():
-    return "Accent classification backend is running." """
+    return "Accent classification backend is running."
 
 
 @app.route("/", defaults={"path": ""})
