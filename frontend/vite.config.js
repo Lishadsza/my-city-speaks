@@ -14,4 +14,9 @@ export default defineConfig({
       plugins: [tailwindcss()],
     },
   },
+  preview: {
+    allowedHosts: [
+      "my-city-speaks.onrender.com"
+    ]
+  }
 })
