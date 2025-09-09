@@ -10,7 +10,7 @@ export default function UploadPage() {
   const [selectedFile, setSelectedFile] = useState(null);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
-  const BACKEND_URL = "https://liicityspeaks.onrender.com";
+ 
 
 
   // Reset
@@ -81,7 +81,7 @@ export default function UploadPage() {
     formData.append("file", file, fileName || file.name);
 
     try {
-      const res = await fetch(`${BACKEND_URL}/predict`, {
+      const res = await fetch("/api/predict",  {
         method: "POST",
         body: formData,
       });
