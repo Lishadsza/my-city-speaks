@@ -1,8 +1,8 @@
 import { Routes, Route, Link } from 'react-router-dom';
 import { Home as HomeIcon, Upload, Phone, Globe } from 'lucide-react';
-import Home from './pages/home';
-import UploadPage from './pages/UploadPage';
-import Contact from './pages/contact';
+import Home from './pages/home.jsx';
+import UploadPage from './pages/UploadPage.jsx';
+import Contact from './pages/contact.jsx';
 
 export default function App() {
   return (
@@ -21,22 +21,22 @@ export default function App() {
 
             {/* Right side - Navigation Links */}
             <div className="flex items-center space-x-6">
-              <Link 
-                to="/" 
+              <Link
+                to="/"
                 className="flex items-center space-x-2 text-white/80 hover:text-white transition-colors"
               >
                 <HomeIcon className="w-4 h-4" />
                 <span>Home</span>
               </Link>
-              <Link 
-                to="/upload" 
+              <Link
+                to="/upload"
                 className="flex items-center space-x-2 text-white/80 hover:text-white transition-colors"
               >
                 <Upload className="w-4 h-4" />
                 <span>Analysis</span>
               </Link>
-              <Link 
-                to="/contact" 
+              <Link
+                to="/contact"
                 className="flex items-center space-x-2 text-white/80 hover:text-white transition-colors"
               >
                 <Phone className="w-4 h-4" />
