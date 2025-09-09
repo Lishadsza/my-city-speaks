@@ -81,7 +81,7 @@ export default function UploadPage() {
     formData.append("file", file, fileName || file.name);
 
     try {
-      const res = await fetch("https://your-backend-name.onrender.com/predict",  {
+      const res = await fetch("http://localhost:5000/predict", {
         method: "POST",
         body: formData,
       });
