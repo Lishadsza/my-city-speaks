@@ -10,7 +10,7 @@ export default function UploadPage() {
   const [selectedFile, setSelectedFile] = useState(null);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
- 
+
 
 
   // Reset
@@ -124,7 +124,7 @@ export default function UploadPage() {
               </div>
               <h2 className="text-2xl font-semibold text-white">Upload Audio File</h2>
             </div>
-            
+
             <div className="space-y-6">
               <div className="relative">
                 <input
@@ -134,7 +134,7 @@ export default function UploadPage() {
                   className="hidden"
                   id="file-upload"
                 />
-                <label 
+                <label
                   htmlFor="file-upload"
                   className="flex items-center justify-center w-full h-32 border-2 border-dashed border-white/30 rounded-xl cursor-pointer hover:border-white/50 transition-colors group"
                 >
@@ -147,7 +147,7 @@ export default function UploadPage() {
                   </div>
                 </label>
               </div>
-              
+
               <div className="flex space-x-3">
                 <button
                   onClick={handleFileUpload}
@@ -184,7 +184,7 @@ export default function UploadPage() {
               </div>
               <h2 className="text-2xl font-semibold text-white">Record Your Voice</h2>
             </div>
-            
+
             <div className="space-y-6">
               {/* Recording Controls */}
               {!isRecording && !audioBlob && (
@@ -214,14 +214,14 @@ export default function UploadPage() {
               {audioBlob && (
                 <div className="space-y-4">
                   <div className="bg-white/5 rounded-xl p-4">
-                    <audio 
-                      controls 
-                      src={audioURL} 
+                    <audio
+                      controls
+                      src={audioURL}
                       className="w-full bg-transparent"
-                      style={{filter: 'invert(1) hue-rotate(180deg)'}}
+                      style={{ filter: 'invert(1) hue-rotate(180deg)' }}
                     />
                   </div>
-                  
+
                   <div className="flex space-x-2">
                     <button
                       onClick={uploadRecording}
@@ -272,7 +272,7 @@ export default function UploadPage() {
               </div>
               <h3 className="text-2xl font-semibold text-white">Analysis Results</h3>
             </div>
-            
+
             {prediction.error ? (
               <div className="text-center py-8">
                 <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -287,7 +287,7 @@ export default function UploadPage() {
                     <p className="text-white/60 text-sm font-medium uppercase tracking-wide mb-2">Detected Language</p>
                     <p className="text-white text-2xl font-bold">{prediction.language}</p>
                   </div>
-                  
+
                   {prediction.accent && (
                     <div className="bg-white/5 rounded-xl p-6 text-center">
                       <p className="text-white/60 text-sm font-medium uppercase tracking-wide mb-2">Regional Accent</p>
@@ -295,15 +295,15 @@ export default function UploadPage() {
                     </div>
                   )}
                 </div>
-                
+
                 {prediction.confidence !== undefined && !isNaN(prediction.confidence) && (
                   <div className="bg-white/5 rounded-xl p-6">
                     <p className="text-white/60 text-sm font-medium uppercase tracking-wide mb-3">Confidence Level</p>
                     <div className="flex items-center space-x-4">
                       <div className="flex-1 bg-white/10 rounded-full h-3 overflow-hidden">
-                        <div 
+                        <div
                           className="h-full bg-gradient-to-r from-green-400 to-blue-500 rounded-full transition-all duration-1000"
-                          style={{width: `${prediction.confidence * 100}%`}}
+                          style={{ width: `${prediction.confidence * 100}%` }}
                         ></div>
                       </div>
                       <span className="text-white text-xl font-bold min-w-16">
@@ -312,7 +312,7 @@ export default function UploadPage() {
                     </div>
                   </div>
                 )}
-                
+
                 {prediction.note && (
                   <div className="bg-blue-500/10 border border-blue-400/20 rounded-xl p-6">
                     <p className="text-blue-200 italic">{prediction.note}</p>
