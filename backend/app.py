@@ -9,7 +9,7 @@ from utils.audioconverter import convert_to_wav
 import tempfile
 
 app = Flask(__name__)
-CORS(app, resources={r"/predict": {"origins": "https://my-city-speaks.onrender.com"}})
+CORS(app)
 
 # Load trained components
 model = joblib.load("svm_model.pkl")
