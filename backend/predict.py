@@ -13,7 +13,7 @@ data = {
     "features": mfcc_mean.tolist()#sending backend
 }
 
-response = requests.post("https://liicityspeaks-backend.onrender.com/predict", json=data)
+response = requests.post("http://127.0.0.1:5000/predict", json=data)
 
 try:
     print("Response JSON:", response.json())

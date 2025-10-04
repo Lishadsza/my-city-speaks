@@ -1,61 +1,92 @@
-import { Routes, Route, Link } from 'react-router-dom';
-import { Home as HomeIcon, Upload, Phone, Globe } from 'lucide-react';
-import Home from './pages/home.jsx';
+import React, { useState } from 'react';
+import { Home as HomeIcon, Upload, Phone, Globe,Home  } from 'lucide-react';
 import UploadPage from './pages/UploadPage.jsx';
-import Contact from './pages/contact.jsx';
+import Contact from './pages/contact.jsx'; 
+import InteractiveMap from './components/InteractiveMap';
+import CityPanel from './components/CityPanel';
+import L from 'leaflet'; 
+import { Routes, Route } from 'react-router-dom'; 
+import Navbar from './components/Navbar'; 
+import MapAndContributePage from './pages/MapAndContributePage';
+import HomePage from './pages/HomePage.jsx';
 
-export default function App() {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-800 to-pink-700">
-      {/* Fixed Navigation Header */}
-      <nav className="fixed top-0 w-full z-50 bg-slate-800/80 backdrop-blur-sm border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            {/* Left side - Brand */}
-            <Link to="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
-              <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-                <Globe className="w-5 h-5 text-purple-600" />
-              </div>
-              <span className="text-white font-semibold text-xl">My City Speaks</span>
-            </Link>
 
-            {/* Right side - Navigation Links */}
-            <div className="flex items-center space-x-6">
-              <Link
-                to="/"
-                className="flex items-center space-x-2 text-white/80 hover:text-white transition-colors"
-              >
-                <HomeIcon className="w-4 h-4" />
-                <span>Home</span>
-              </Link>
-              <Link
-                to="/upload"
-                className="flex items-center space-x-2 text-white/80 hover:text-white transition-colors"
-              >
-                <Upload className="w-4 h-4" />
-                <span>Analysis</span>
-              </Link>
-              <Link
-                to="/contact"
-                className="flex items-center space-x-2 text-white/80 hover:text-white transition-colors"
-              >
-                <Phone className="w-4 h-4" />
-                <span>Contact</span>
-              </Link>
-            </div>
-          </div>
+// ensures the map markers display correctly in the browser
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+    iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+});
+
+// Static list of languages for the dropdown
+const LANGUAGES = ['Hindi', 'Marathi', 'Tamil', 'Telugu', 'Kannada', 'Bengali', 'Gujarati', 'Odia', 'Malayalam', 'Punjabi', 'Assamese', 'Other'];
+
+// Component that handles the map/panel switching logic for the Home route
+const MapInterface = ({ languages }) => {
+    const [selectedCity, setSelectedCity] = useState(null); 
+    // Function passed down to CityPanel to trigger re-fetching of recordings after an upload
+    const handleUploadSuccess = () => {
+     // CityPanel handles its own re-fetch logic when this is called
+    };
+    const handleCitySelect = (cityData) => {
+        setSelectedCity(cityData);
+    };
+
+    const handleClosePanel = () => {
+        setSelectedCity(null);
+    };
+
+    return (
+        <div className="pt-24 min-h-screen container mx-auto p-4 w-full max-w-7xl">
+            {selectedCity ? (
+                <div className="flex justify-center">
+                    <div className="w-full max-w-3xl bg-white p-6 shadow-xl rounded-xl">
+                        <button 
+                            onClick={handleClosePanel} 
+                            className="mb-4 text-sm font-semibold text-blue-600 hover:text-blue-800 transition duration-150 ease-in-out flex items-center"
+                        >
+                            &larr; Back to Map View
+                        </button>
+                        <CityPanel 
+                            city={selectedCity} 
+                            onUploadSuccess={handleUploadSuccess} 
+                            languages={languages}
+                        />
+                    </div>
+                </div>
+            ) : (
+                <div className="shadow-2xl rounded-xl overflow-hidden border border-gray-200">
+                    <h2 className="text-xl font-bold text-gray-800 p-4 bg-gray-100 border-b">
+                        Interactive City Map (Click a marker to explore)
+                    </h2>
+                    <InteractiveMap onCitySelect={handleCitySelect} />
+                </div>
+            )}
         </div>
-      </nav>
+    );
+};
+export default function App() {
+    return (
+        <div className="min-h-screen bg-gray-100"> 
+                        <Navbar /> 
 
-      {/* Main Content */}
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/upload" element={<UploadPage />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </main>
-    </div>
-  );
+            {/* 2. Main Content Area */}
+            <main>
+                <Routes>
+                    {/*  Home Route */}
+                    <Route path="/" element={<HomePage />} />
+                    
+                    {/* Map Route (Uses the combined container) */}
+                    <Route path="/map" element={<MapAndContributePage />} /> 
+                    
+                    {/*  Analysis Route (Uses  UploadPage component) */}
+                    <Route path="/analysis" element={<UploadPage />} />
+                    
+                    {/*Contact Me Route */}
+                    <Route path="/contact" element={<Contact />} />
+                </Routes>
+            </main>
+        </div>
+    );
 }
-
