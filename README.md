@@ -16,48 +16,48 @@
 
 ---
 
-## 🌟 Overview
+##  Overview
 
 **My City Speaks** is an innovative web application that combines **AI-powered language identification** with **community-driven accent mapping** to preserve and celebrate India's linguistic diversity. The platform enables users to record, share, and explore regional language variations across different cities.
 
-### 🎯 Mission
+###  Mission
 To create a comprehensive digital archive of India's regional accents and dialects, making linguistic diversity accessible and preserving it for future generations.
 
 ---
 
-## ✨ Key Features
+##  Key Features
 
-### 🎤 **AI Language Detection**
+###  **AI Language Detection**
 - **Real-time language identification** using machine learning (SVM model)
 - **Multi-language support**: English, Kannada, Tulu, Hindi, and more
 - **Audio feature extraction** using librosa for accurate classification
 - **Confidence scoring** with detailed prediction notes
 
-### 🗺️ **Interactive City Mapping**
+###  **Interactive City Mapping**
 - **80+ Indian cities** with precise geo-coordinates
 - **Interactive Leaflet maps** for city exploration
 - **City-specific language options** based on regional demographics
 - **Visual accent distribution** across different regions
 
-### 🎙️ **Community Recording Platform**
+###  **Community Recording Platform**
 - **Browser-based audio recording** using MediaRecorder API
 - **Phrase-based contributions** with curated English phrases
 - **Multi-language recording** for each city
 - **Audio playback and review** before submission
 
-### 🏘️ **Community Request System**
+### **Community Request System**
 - **Phrase request board** for community-driven content
 - **Pending request management** with admin approval
 - **Collaborative contribution** workflow
 - **Request fulfillment tracking**
 
-### 🎨 **Modern Glassmorphism UI**
+###  **Modern Glassmorphism UI**
 - **Glass-effect design** with backdrop blur
 - **Responsive layout** for all device sizes
 - **Smooth animations** and transitions
 - **Accessible interface** with proper contrast
 
-### 📊 **Data Management**
+###  **Data Management**
 - **Supabase integration** for scalable database
 - **Real-time data synchronization**
 - **Audio file storage** with CDN delivery
@@ -65,7 +65,7 @@ To create a comprehensive digital archive of India's regional accents and dialec
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ### **Frontend Stack**
 - **React 19.1** - Modern UI framework
@@ -221,7 +221,7 @@ POST /api/request_phrase
 
 ---
 
-## 🎯 Usage Examples
+##  Usage Examples
 
 ### **Recording a Phrase**
 1. Select a city on the interactive map
@@ -276,7 +276,7 @@ python train_model.py
 ---
 
 
-## 📊 Project Statistics
+## Project Statistics
 
 - **80+ Cities** mapped across India
 - **4+ Languages** supported for ML detection
@@ -286,7 +286,7 @@ python train_model.py
 
 ---
 
-## 📞 Contact & Support
+##  Contact & Support
 
 - **Email**: dsouzalisha24@gmail.com
 - **Documentation**: [Full API docs](https://docs.mycityspeaks.com)
