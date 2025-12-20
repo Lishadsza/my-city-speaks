@@ -293,6 +293,27 @@ python train_model.py
 
 ---
 
+## Screenshots
+-HomePage
+<img width="1898" height="916" alt="image" src="https://github.com/user-attachments/assets/0400f497-560d-47b2-9f2b-56f7201dd601" />
+<img width="1901" height="906" alt="image" src="https://github.com/user-attachments/assets/35b6bf29-9a22-4eed-a241-60b79e083ddd" />
+
+-MapPage
+<img width="1915" height="910" alt="image" src="https://github.com/user-attachments/assets/ae24fb89-d2a4-4d6e-bc97-8f8730303dd1" />
+<img width="1917" height="892" alt="image" src="https://github.com/user-attachments/assets/7acbbbda-4b24-41cf-a34a-54f6704db378" />
+<img width="1888" height="890" alt="image" src="https://github.com/user-attachments/assets/2de65de6-efd6-47de-ac7d-fbb7bf806485" />
+<img width="1914" height="908" alt="image" src="https://github.com/user-attachments/assets/67a3d063-9a10-40ab-92bc-3e8684452abe" />
+
+-AnalysisPage
+<img width="1889" height="905" alt="image" src="https://github.com/user-attachments/assets/57020078-386c-4985-9c79-258312882b7c" />
+<img width="1888" height="900" alt="image" src="https://github.com/user-attachments/assets/e9a5a6a7-bc93-4f44-9456-ec289db98ada" />
+
+
+-ContactmePage
+<img width="1867" height="902" alt="image" src="https://github.com/user-attachments/assets/d7a93dd8-fcb4-4f8f-a852-42230782905a" />
+
+
+
 <div align="center">
 
 
