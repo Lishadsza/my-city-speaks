@@ -10,7 +10,7 @@
 
 **A comprehensive web platform for mapping and preserving regional language accents across India**
 
-[🚀 Live Demo](#) • [📖 Documentation](#setup-and-installation) • [🤝 Contributing](#contributing)
+
 
 </div>
 
