@@ -3,10 +3,10 @@ name: Keep Service Alive
 on:
   schedule:
     - cron: "*/15 * * * *"
-
+     
 jobs:
   ping:
-    runs-on: ubuntu-latest
-    steps:
+    runs-on: ubuntu-latest 
+    steps: 
       - name: Send GET request
-        run: curl -s "https://my-city-speaks.onrender.com/" > /dev/null
+        run: curl -s "https://my-city-speaks.onrender.com/" > /dev/null 

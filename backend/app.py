@@ -34,8 +34,13 @@ if not SUPABASE_URL or not SUPABASE_KEY:
     print("WARNING: Supabase credentials not found. Database features will fail.")
     supabase = None
 else:
-    supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
-    print("Supabase client initialized.")
+    try:
+        supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+        print("Supabase client initialized.")
+    except Exception as e:
+        print(f"WARNING: Failed to initialize Supabase client: {e}")
+        print("Database features will be disabled. ML prediction will still work.")
+        supabase = None
 
 
 app = Flask(__name__)
@@ -53,10 +58,10 @@ except Exception as e:
     model = None 
 # Notes
 language_notes = {
-    "kannada": "This language is commonly spoken in Karnataka. (Based on language, not location prediction.)",
-    "tulu": "This language is spoken mainly in coastal Karnataka and parts of Kerala. (Based on language, not location prediction.)",
-    "hindi": "This language is widely spoken across North and Central India. (Based on language, not location prediction.)",
-    "english": "This language is commonly used in urban and formal settings across India. (Based on language, not location prediction.)"
+    "kannada": "This language is commonly spoken in Karnataka.",
+    "tulu": "This language is spoken mainly in coastal Karnataka and parts of Kerala. ",
+    "hindi": "This language is widely spoken across North and Central India.)",
+    "english": "This language is commonly used in urban and formal settings across India. )"
 }
 #Ml endpoints
 @app.route("/")
@@ -186,31 +191,31 @@ def request_phrase():
         print(f"Phrase Request Error: {e}")
         return jsonify({"error": f"Database error on phrase request: {str(e)}"}), 500
 
-@app.route("/api/fulfill_request/<int:request_id>", methods=["POST"])
-def fulfill_request(request_id):
-    """
-    API Endpoint: Sets the status of a specific phrase request to 'fulfilled'.
-    This endpoint is called after a user successfully contributes a recording 
-    for a phrase requested by the community.
-    """
-    if supabase is None:
-        return jsonify({"error": "Supabase client not initialized."}), 500
+# @app.route("/api/fulfill_request/<int:request_id>", methods=["POST"])
+# def fulfill_request(request_id):
+#     """
+#     API Endpoint: Sets the status of a specific phrase request to 'fulfilled'.
+#     This endpoint is called after a user successfully contributes a recording 
+#     for a phrase requested by the community.
+#     """
+#     if supabase is None:
+#         return jsonify({"error": "Supabase client not initialized."}), 500
 
-    try:
-        # Update the 'phrase_requests' table using the request_id passed in the URL
-        response = supabase.table("phrase_requests").update({
-            "status": "fulfilled"
-        }).eq("id", request_id).execute()
+#     try:
+#         # Update the 'phrase_requests' table using the request_id passed in the URL
+#         response = supabase.table("phrase_requests").update({
+#             "status": "fulfilled"
+#         }).eq("id", request_id).execute()
 
-        # Check if the update was successful (Supabase returns data if successful)
-        if response.data:
-            return jsonify({"message": f"Request ID {request_id} fulfilled."}), 200
-        else:
-            return jsonify({"error": f"Request ID {request_id} not found or status already fulfilled."}), 404
+#         # Check if the update was successful (Supabase returns data if successful)
+#         if response.data:
+#             return jsonify({"message": f"Request ID {request_id} fulfilled."}), 200
+#         else:
+#             return jsonify({"error": f"Request ID {request_id} not found or status already fulfilled."}), 404
 
-    except Exception as e:
-        print(f"Fulfillment Error for ID {request_id}: {e}")
-        return jsonify({"error": f"Database error during fulfillment: {str(e)}"}), 500
+#     except Exception as e:
+#         print(f"Fulfillment Error for ID {request_id}: {e}")
+#         return jsonify({"error": f"Database error during fulfillment: {str(e)}"}), 500
 
 # UPLOAD ENDPOINT 
 @app.route("/api/upload", methods=["POST"])
