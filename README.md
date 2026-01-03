@@ -88,22 +88,6 @@ To create a comprehensive digital archive of India's regional accents and dialec
 - **Audio Preprocessing** - Format conversion and normalization
 - **Model Serialization** - Joblib for model persistence
 
-### **Database Schema**
-```sql
--- Cities table
-cities: id, name, lat, lng
-
--- Phrases table  
-phrases: id, english_text
-
--- Recordings table
-recordings: id, audio_url, language, phrase_id, city_id, created_at
-
--- Phrase requests table
-phrase_requests: id, request_text, language, city_id, status, created_at
-```
-
----
 
 ## 🚀 Setup and Installation
 
@@ -244,36 +228,6 @@ POST /api/request_phrase
 
 ---
 
-## 🛠️ Development Tools
-
-### **City Management**
-```bash
-# Add all major Indian cities
-python add_cities_fixed.py
-
-# Interactive city management
-python update_cities.py
-```
-
-### **Phrase Management**
-```bash
-# Batch phrase updates
-python batch_update_phrases.py
-
-# Interactive phrase management  
-python update_phrases.py
-```
-
-### **Audio Processing**
-```bash
-# Feature extraction
-python extract_features.py
-
-# Model training
-python train_model.py
-```
-
----
 
 
 ## Project Statistics
