@@ -27,7 +27,7 @@ To create a comprehensive digital archive of India's regional accents and dialec
 
 ##  Key Features
 
-###  **AI Language Detection**
+###  **AI Language Accent Detection**
 - **Real-time language identification** using machine learning (SVM model)
 - **Multi-language support**: English, Kannada, Tulu, Hindi, and more
 - **Audio feature extraction** using librosa for accurate classification
